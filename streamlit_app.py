@@ -13,7 +13,7 @@ import contextlib
 st.write(f"TensorFlow version: {tf.__version__}")
 # Descargar y descomprimir el modelo si no existe
 def download_and_extract_model():
-    model_url = 'https://dl.dropboxusercontent.com/s/7dem3021prjvjrop9fliq/best_model.zip?rlkey=x7kxeb7z1i8rsi8bgb7g0aahj&st=b1ro9bmy'
+    model_url = 'https://dl.dropboxusercontent.com/s/zdpgpalkhlw4km09c8aru/best_model.zip?rlkey=4bz0g3am4f2w4cubq4tgx98cm&st=pwnw1tu7'
     zip_path = 'best_model.zip'
     extract_folder = 'extracted_files'
 
@@ -57,7 +57,7 @@ model = Model(inputs=base_model.input, outputs=predictions)
 
 # Cargar los pesos del modelo desde el archivo .keras
 try:
-    model.load_weights(modelo_path)
+    model.load_model(modelo_path)
     st.success("Pesos del modelo cargados correctamente.")
 except Exception as e:
     st.error(f"Error al cargar los pesos del modelo: {e}")
