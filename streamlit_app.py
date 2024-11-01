@@ -44,15 +44,15 @@ else:
     st.success("Archivo del modelo encontrado")
 
 # Definir el modelo base InceptionV3
-base_model = InceptionV3(weights=None, include_top=False, input_shape=(224, 224, 3))
-base_model.trainable = False
+#base_model = InceptionV3(weights=None, include_top=False, input_shape=(224, 224, 3))
+#base_model.trainable = False
 
 # Añadir capas de clasificación
-x = base_model.output
-x = GlobalAveragePooling2D()(x)
-x = Dense(128, activation='relu')(x)
-x = Dropout(0.5)(x)
-predictions = Dense(2, activation='sigmoid')(x)
+#x = base_model.output
+#x = GlobalAveragePooling2D()(x)
+#x = Dense(128, activation='relu')(x)
+#x = Dropout(0.5)(x)
+#predictions = Dense(2, activation='sigmoid')(x)
 #model = Model(inputs=base_model.input, outputs=predictions)
 
 # Cargar los pesos del modelo desde el archivo .keras
