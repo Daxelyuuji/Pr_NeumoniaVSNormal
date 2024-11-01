@@ -44,20 +44,20 @@ else:
     st.success("Archivo del modelo encontrado")
 
 # Definir el modelo base InceptionV3
-base_model = InceptionV3(weights=None, include_top=False, input_shape=(150, 150, 3))
+base_model = InceptionV3(weights=None, include_top=False, input_shape=(224, 224, 3))
 base_model.trainable = False
 
 # Añadir capas de clasificación
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
-x = Dense(1024, activation='relu')(x)
-x = Dropout(0.2)(x)
-predictions = Dense(1, activation='sigmoid')(x)
-model = Model(inputs=base_model.input, outputs=predictions)
+x = Dense(128, activation='relu')(x)
+x = Dropout(0.5)(x)
+predictions = Dense(2, activation='sigmoid')(x)
+#model = Model(inputs=base_model.input, outputs=predictions)
 
 # Cargar los pesos del modelo desde el archivo .keras
 try:
-    model.load_model(modelo_path)
+    model =tf.keras.models.load_model(modelo_path)
     st.success("Pesos del modelo cargados correctamente.")
 except Exception as e:
     st.error(f"Error al cargar los pesos del modelo: {e}")
@@ -70,7 +70,7 @@ if uploaded_file is not None and model is not None:
     st.image(uploaded_file, width=300, caption="Imagen cargada")
 
     # Preprocesamiento de la imagen para hacer la predicción
-    img = image.load_img(uploaded_file, target_size=(150, 150))
+    img = image.load_img(uploaded_file, target_size=(224, 224))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0) / 255.0
 
@@ -81,6 +81,6 @@ if uploaded_file is not None and model is not None:
 
     # Mostrar resultados
     if prediction[0][0] > 0.5:
-        st.success('El modelo predice que la imagen es de un **Neumonia**.')
+        st.success('El modelo predice que la imagen es de un **Normal**.')
     else:
-        st.success('El modelo predice que la imagen es de un **normal**.')
+        st.success('El modelo predice que la imagen es de un **Neumonia**.')
